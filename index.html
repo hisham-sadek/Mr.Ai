@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <base target="_self">
     <meta charset="UTF-8">
@@ -7,6 +7,7 @@
     <title>Mr.Ai | Custom AI Solutions for Your Business</title>
     <meta name="description" content="Tailored AI automation, digital marketing, and data analysis services for businesses of all sizes">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -20,20 +21,41 @@
                         light: "#f9fafb"
                     },
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif']
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Tajawal', 'sans-serif']
                     }
                 }
             }
         }
     </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         .hero-gradient {
             background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
         }
         .feature-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        [dir="rtl"] .process-step:nth-child(even) .process-content {
+            text-align: right;
+        }
+        [dir="rtl"] .process-step:nth-child(odd) .process-content {
+            text-align: left;
+        }
+        .language-switcher {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .language-switcher:hover {
+            color: #3b82f6;
+        }
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .mobile-menu.open {
+            max-height: 500px;
         }
     </style>
 </head>
@@ -42,26 +64,51 @@
     <header class="sticky top-0 z-50 bg-white shadow-sm">
         <nav class="container mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
-                <div class="flex items-center space-x-2">
+                <div class="flex items-center space-x-2 rtl:space-x-reverse">
                     <svg class="w-8 h-8 text-primary" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"></path>
                     </svg>
                     <span class="text-xl font-bold text-dark">Mr.Ai</span>
                 </div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#services" class="text-gray-600 hover:text-primary transition">Services</a>
-                    <a href="#process" class="text-gray-600 hover:text-primary transition">Our Process</a>
-                    <a href="#testimonials" class="text-gray-600 hover:text-primary transition">Testimonials</a>
-                    <a href="#contact" class="text-gray-600 hover:text-primary transition">Contact</a>
+                <div class="hidden md:flex items-center space-x-8 rtl:space-x-reverse">
+                    <a href="#services" class="text-gray-600 hover:text-primary transition nav-link" data-en="Services" data-ar="خدماتنا">Services</a>
+                    <a href="#process" class="text-gray-600 hover:text-primary transition nav-link" data-en="Our Process" data-ar="عملنا">Our Process</a>
+                    <a href="#testimonials" class="text-gray-600 hover:text-primary transition nav-link" data-en="Testimonials" data-ar="آراء العملاء">Testimonials</a>
+                    <a href="#contact" class="text-gray-600 hover:text-primary transition nav-link" data-en="Contact" data-ar="اتصل بنا">Contact</a>
+                    <div class="language-switcher flex items-center text-gray-600 ml-4 rtl:ml-0 rtl:mr-4" id="languageSwitcher">
+                        <span class="current-lang">EN</span>
+                        <i class="fas fa-chevron-down text-xs ml-1 rtl:ml-0 rtl:mr-1"></i>
+                    </div>
+                    <div class="language-dropdown hidden absolute mt-2 bg-white shadow-md rounded-md p-2" id="languageDropdown">
+                        <div class="px-4 py-2 hover:bg-gray-100 rounded cursor-pointer" data-lang="en">English</div>
+                        <div class="px-4 py-2 hover:bg-gray-100 rounded cursor-pointer" data-lang="ar">العربية</div>
+                    </div>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <a href="#contact" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-secondary transition">Get Quote</a>
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
+                    <a href="#contact" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-secondary transition cta-button" data-en="Get Quote" data-ar="اطلب عرض سعر">Get Quote</a>
+                    <button class="md:hidden text-gray-600 focus:outline-none" id="mobileMenuButton">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
                 </div>
-                <button class="md:hidden text-gray-600 focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
+            </div>
+            <!-- Mobile Menu -->
+            <div class="mobile-menu md:hidden bg-white" id="mobileMenu">
+                <div class="flex flex-col space-y-4 py-4">
+                    <a href="#services" class="text-gray-600 hover:text-primary transition nav-link" data-en="Services" data-ar="خدماتنا">Services</a>
+                    <a href="#process" class="text-gray-600 hover:text-primary transition nav-link" data-en="Our Process" data-ar="عملنا">Our Process</a>
+                    <a href="#testimonials" class="text-gray-600 hover:text-primary transition nav-link" data-en="Testimonials" data-ar="آراء العملاء">Testimonials</a>
+                    <a href="#contact" class="text-gray-600 hover:text-primary transition nav-link" data-en="Contact" data-ar="اتصل بنا">Contact</a>
+                    <div class="flex space-x-4 rtl:space-x-reverse">
+                        <div class="language-switcher flex items-center text-gray-600" data-lang="en">
+                            English
+                        </div>
+                        <div class="language-switcher flex items-center text-gray-600" data-lang="ar">
+                            العربية
+                        </div>
+                    </div>
+                </div>
             </div>
         </nav>
     </header>
@@ -69,11 +116,11 @@
     <!-- Hero Section -->
     <section class="hero-gradient text-white py-20">
         <div class="container mx-auto px-6 text-center">
-            <h1 class="text-4xl md:text-5xl font-bold mb-6">Custom AI Solutions for Your Business</h1>
-            <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto">Tailored AI automation, digital marketing, and data analysis services designed for your specific needs</p>
-            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-                <a href="#contact" class="px-8 py-3 bg-white text-primary font-semibold rounded-md hover:bg-gray-100 transition">Get Custom Quote</a>
-                <a href="#services" class="px-8 py-3 border-2 border-white text-white font-semibold rounded-md hover:bg-white hover:text-primary transition">Our Services</a>
+            <h1 class="text-4xl md:text-5xl font-bold mb-6" data-en="Custom AI Solutions for Your Business" data-ar="حلول الذكاء الاصطناعي المخصصة لعملك">Custom AI Solutions for Your Business</h1>
+            <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto" data-en="Tailored AI automation, digital marketing, and data analysis services designed for your specific needs" data-ar="حلول مخصصة في أتمتة الذكاء الاصطناعي، التسويق الرقمي، وتحليل البيانات مصممة خصيصًا لاحتياجاتك">Tailored AI automation, digital marketing, and data analysis services designed for your specific needs</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 rtl:space-x-reverse">
+                <a href="#contact" class="px-8 py-3 bg-white text-primary font-semibold rounded-md hover:bg-gray-100 transition cta-button" data-en="Get Custom Quote" data-ar="اطلب عرض سعر مخصص">Get Custom Quote</a>
+                <a href="#services" class="px-8 py-3 border-2 border-white text-white font-semibold rounded-md hover:bg-white hover:text-primary transition cta-button" data-en="Our Services" data-ar="خدماتنا">Our Services</a>
             </div>
         </div>
     </section>
@@ -82,8 +129,8 @@
     <section id="services" class="py-20 bg-gray-50">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-dark mb-4">Our Services</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Comprehensive solutions tailored to your business requirements</p>
+                <h2 class="text-3xl font-bold text-dark mb-4" data-en="Our Services" data-ar="خدماتنا">Our Services</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto" data-en="Comprehensive solutions tailored to your business requirements" data-ar="حلول شاملة مصممة خصيصًا لمتطلبات عملك">Comprehensive solutions tailored to your business requirements</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Service 1 -->
@@ -91,9 +138,10 @@
                     <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
                         <i class="fas fa-robot text-primary text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">AI Automation</h3>
-                    <p class="text-gray-600 mb-4">Custom automation solutions that streamline your workflows and reduce operational costs.</p>
-                    <a href="#contact" class="text-primary font-medium inline-flex items-center">Get Quote <i class="fas fa-arrow-right ml-2"></i></a>
+                    <img src="https://picsum.photos/400/300?random=10&grayscale" alt="AI Automation" class="w-full h-48 object-cover rounded-lg mb-4" loading="lazy">
+                    <h3 class="text-xl font-semibold mb-3" data-en="AI Automation" data-ar="أتمتة الذكاء الاصطناعي">AI Automation</h3>
+                    <p class="text-gray-600 mb-4" data-en="Custom automation solutions that streamline your workflows and reduce operational costs." data-ar="حلول أتمتة مخصصة تبسط عملياتك وتقلل التكاليف التشغيلية.">Custom automation solutions that streamline your workflows and reduce operational costs.</p>
+                    <a href="#contact" class="text-primary font-medium inline-flex items-center cta-link" data-en="Get Quote" data-ar="اطلب عرض سعر">Get Quote <i class="fas fa-arrow-right ml-2 rtl:ml-0 rtl:mr-2 rtl:transform rtl:rotate-180"></i></a>
                 </div>
                 
                 <!-- Service 2 -->
@@ -101,9 +149,10 @@
                     <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
                         <i class="fas fa-bullseye text-primary text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">Digital Marketing</h3>
-                    <p class="text-gray-600 mb-4">Data-driven marketing strategies customized for your target audience and business goals.</p>
-                    <a href="#contact" class="text-primary font-medium inline-flex items-center">Get Quote <i class="fas fa-arrow-right ml-2"></i></a>
+                    <img src="https://picsum.photos/400/300?random=11&grayscale" alt="Digital Marketing" class="w-full h-48 object-cover rounded-lg mb-4" loading="lazy">
+                    <h3 class="text-xl font-semibold mb-3" data-en="Digital Marketing" data-ar="التسويق الرقمي">Digital Marketing</h3>
+                    <p class="text-gray-600 mb-4" data-en="Data-driven marketing strategies customized for your target audience and business goals." data-ar="استراتيجيات تسويقية مدعومة بالبيانات ومصممة لجمهورك المستهدف وأهداف عملك.">Data-driven marketing strategies customized for your target audience and business goals.</p>
+                    <a href="#contact" class="text-primary font-medium inline-flex items-center cta-link" data-en="Get Quote" data-ar="اطلب عرض سعر">Get Quote <i class="fas fa-arrow-right ml-2 rtl:ml-0 rtl:mr-2 rtl:transform rtl:rotate-180"></i></a>
                 </div>
                 
                 <!-- Service 3 -->
@@ -111,9 +160,10 @@
                     <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
                         <i class="fas fa-chart-bar text-primary text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">Data Analysis</h3>
-                    <p class="text-gray-600 mb-4">Advanced analytics solutions that transform your data into actionable business insights.</p>
-                    <a href="#contact" class="text-primary font-medium inline-flex items-center">Get Quote <i class="fas fa-arrow-right ml-2"></i></a>
+                    <img src="https://picsum.photos/400/300?random=12&grayscale" alt="Data Analysis" class="w-full h-48 object-cover rounded-lg mb-4" loading="lazy">
+                    <h3 class="text-xl font-semibold mb-3" data-en="Data Analysis" data-ar="تحليل البيانات">Data Analysis</h3>
+                    <p class="text-gray-600 mb-4" data-en="Advanced analytics solutions that transform your data into actionable business insights." data-ar="حلول تحليلية متقدمة تحول بياناتك إلى رؤى عمل قابلة للتطبيق.">Advanced analytics solutions that transform your data into actionable business insights.</p>
+                    <a href="#contact" class="text-primary font-medium inline-flex items-center cta-link" data-en="Get Quote" data-ar="اطلب عرض سعر">Get Quote <i class="fas fa-arrow-right ml-2 rtl:ml-0 rtl:mr-2 rtl:transform rtl:rotate-180"></i></a>
                 </div>
             </div>
         </div>
@@ -123,8 +173,8 @@
     <section id="process" class="py-20 bg-white">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-dark mb-4">Our Custom Approach</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">We tailor our solutions to your specific business needs</p>
+                <h2 class="text-3xl font-bold text-dark mb-4" data-en="Our Custom Approach" data-ar="نهجنا المخصص">Our Custom Approach</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto" data-en="We tailor our solutions to your specific business needs" data-ar="نصمم حلولنا وفقًا لاحتياجات عملك المحددة">We tailor our solutions to your specific business needs</p>
             </div>
             <div class="max-w-4xl mx-auto">
                 <div class="relative">
@@ -132,11 +182,11 @@
                     <div class="hidden md:block absolute left-1/2 top-0 h-full w-1 bg-gray-200 transform -translate-x-1/2"></div>
                     
                     <!-- Process Step 1 -->
-                    <div class="relative mb-12 md:mb-16">
+                    <div class="relative mb-12 md:mb-16 process-step">
                         <div class="md:flex items-center">
-                            <div class="md:w-1/2 md:pr-12 md:text-right mb-4 md:mb-0">
-                                <h3 class="text-xl font-semibold mb-2">Discovery</h3>
-                                <p class="text-gray-600">We analyze your business needs and challenges to understand your requirements.</p>
+                            <div class="md:w-1/2 md:pr-12 md:text-right mb-4 md:mb-0 process-content">
+                                <h3 class="text-xl font-semibold mb-2" data-en="Discovery" data-ar="الاكتشاف">Discovery</h3>
+                                <p class="text-gray-600" data-en="We analyze your business needs and challenges to understand your requirements." data-ar="نقوم بتحليل احتياجات وتحديات عملك لفهم متطلباتك.">We analyze your business needs and challenges to understand your requirements.</p>
                             </div>
                             <div class="hidden md:block w-12 h-12 bg-primary rounded-full flex items-center justify-center mx-auto flex-shrink-0">
                                 <span class="text-white font-bold">1</span>
@@ -146,25 +196,25 @@
                     </div>
                     
                     <!-- Process Step 2 -->
-                    <div class="relative mb-12 md:mb-16">
+                    <div class="relative mb-12 md:mb-16 process-step">
                         <div class="md:flex items-center">
                             <div class="md:w-1/2 md:pr-12 md:text-right mb-4 md:mb-0"></div>
                             <div class="hidden md:block w-12 h-12 bg-primary rounded-full flex items-center justify-center mx-auto flex-shrink-0">
                                 <span class="text-white font-bold">2</span>
                             </div>
-                            <div class="md:w-1/2 md:pl-12">
-                                <h3 class="text-xl font-semibold mb-2">Custom Proposal</h3>
-                                <p class="text-gray-600">We create a tailored solution with transparent pricing based on your specific needs.</p>
+                            <div class="md:w-1/2 md:pl-12 process-content">
+                                <h3 class="text-xl font-semibold mb-2" data-en="Custom Proposal" data-ar="عرض مخصص">Custom Proposal</h3>
+                                <p class="text-gray-600" data-en="We create a tailored solution with transparent pricing based on your specific needs." data-ar="نقوم بإنشاء حل مخصص مع تسعير شفاف بناءً على احتياجاتك المحددة.">We create a tailored solution with transparent pricing based on your specific needs.</p>
                             </div>
                         </div>
                     </div>
                     
                     <!-- Process Step 3 -->
-                    <div class="relative mb-12 md:mb-16">
+                    <div class="relative mb-12 md:mb-16 process-step">
                         <div class="md:flex items-center">
-                            <div class="md:w-1/2 md:pr-12 md:text-right mb-4 md:mb-0">
-                                <h3 class="text-xl font-semibold mb-2">Implementation</h3>
-                                <p class="text-gray-600">Our experts implement the solution with minimal disruption to your operations.</p>
+                            <div class="md:w-1/2 md:pr-12 md:text-right mb-4 md:mb-0 process-content">
+                                <h3 class="text-xl font-semibold mb-2" data-en="Implementation" data-ar="التنفيذ">Implementation</h3>
+                                <p class="text-gray-600" data-en="Our experts implement the solution with minimal disruption to your operations." data-ar="يقوم خبراؤنا بتنفيذ الحل مع الحد الأدنى من التعطيل لعملياتك.">Our experts implement the solution with minimal disruption to your operations.</p>
                             </div>
                             <div class="hidden md:block w-12 h-12 bg-primary rounded-full flex items-center justify-center mx-auto flex-shrink-0">
                                 <span class="text-white font-bold">3</span>
@@ -174,15 +224,15 @@
                     </div>
                     
                     <!-- Process Step 4 -->
-                    <div class="relative">
+                    <div class="relative process-step">
                         <div class="md:flex items-center">
                             <div class="md:w-1/2 md:pr-12 md:text-right mb-4 md:mb-0"></div>
                             <div class="hidden md:block w-12 h-12 bg-primary rounded-full flex items-center justify-center mx-auto flex-shrink-0">
                                 <span class="text-white font-bold">4</span>
                             </div>
-                            <div class="md:w-1/2 md:pl-12">
-                                <h3 class="text-xl font-semibold mb-2">Ongoing Support</h3>
-                                <p class="text-gray-600">We provide continuous support and optimization to ensure your success.</p>
+                            <div class="md:w-1/2 md:pl-12 process-content">
+                                <h3 class="text-xl font-semibold mb-2" data-en="Ongoing Support" data-ar="الدعم المستمر">Ongoing Support</h3>
+                                <p class="text-gray-600" data-en="We provide continuous support and optimization to ensure your success." data-ar="نقدم دعمًا مستمرًا وتحسينًا لضمان نجاحك.">We provide continuous support and optimization to ensure your success.</p>
                             </div>
                         </div>
                     </div>
@@ -195,20 +245,20 @@
     <section id="testimonials" class="py-20 bg-gray-50">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-dark mb-4">What Our Clients Say</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Trusted by businesses across industries</p>
+                <h2 class="text-3xl font-bold text-dark mb-4" data-en="What Our Clients Say" data-ar="آراء عملائنا">What Our Clients Say</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto" data-en="Trusted by businesses across industries" data-ar="موثوق به من قبل الشركات عبر مختلف الصناعات">Trusted by businesses across industries</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Testimonial 1 -->
                 <div class="bg-white p-8 rounded-lg shadow-sm">
                     <div class="flex items-center mb-4">
-                        <img src="https://picsum.photos/80?random=1" alt="Sarah Johnson" class="w-12 h-12 rounded-full mr-4">
+                        <img src="https://picsum.photos/80?random=1" alt="Ahmed Al-Mansoori" class="w-12 h-12 rounded-full mr-4 rtl:mr-0 rtl:ml-4">
                         <div>
                             <h4 class="font-semibold">Ahmed Al-Mansoori</h4>
                             <p class="text-gray-500 text-sm">CEO, TechSolutions Yemen</p>
                         </div>
                     </div>
-                    <p class="text-gray-600">"Mr.Ai's custom automation solutions transformed our operations. Their team understood our unique challenges and delivered exactly what we needed."</p>
+                    <p class="text-gray-600" data-en="Mr.Ai's custom automation solutions transformed our operations. Their team understood our unique challenges and delivered exactly what we needed." data-ar="حلول الأتمتة المخصصة من Mr.Ai غيرت عملياتنا. فهم فريقنا تحدياتنا الفريدة وقدموا بالضبط ما نحتاجه.">Mr.Ai's custom automation solutions transformed our operations. Their team understood our unique challenges and delivered exactly what we needed.</p>
                     <div class="mt-4 text-yellow-400">
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
@@ -221,13 +271,13 @@
                 <!-- Testimonial 2 -->
                 <div class="bg-white p-8 rounded-lg shadow-sm">
                     <div class="flex items-center mb-4">
-                        <img src="https://picsum.photos/80?random=2" alt="Michael Chen" class="w-12 h-12 rounded-full mr-4">
+                        <img src="https://picsum.photos/80?random=2" alt="Fatima Abdullah" class="w-12 h-12 rounded-full mr-4 rtl:mr-0 rtl:ml-4">
                         <div>
                             <h4 class="font-semibold">Fatima Abdullah</h4>
                             <p class="text-gray-500 text-sm">Marketing Director, GulfCommerce</p>
                         </div>
                     </div>
-                    <p class="text-gray-600">"The digital marketing strategy from Mr.Ai was tailored perfectly for our regional market. Our engagement rates have never been higher."</p>
+                    <p class="text-gray-600" data-en="The digital marketing strategy from Mr.Ai was tailored perfectly for our regional market. Our engagement rates have never been higher." data-ar="كانت استراتيجية التسويق الرقمي من Mr.Ai مصممة تمامًا لسوقنا الإقليمي. وصلت معدلات تفاعلنا إلى مستويات غير مسبوقة.">The digital marketing strategy from Mr.Ai was tailored perfectly for our regional market. Our engagement rates have never been higher.</p>
                     <div class="mt-4 text-yellow-400">
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
@@ -240,13 +290,13 @@
                 <!-- Testimonial 3 -->
                 <div class="bg-white p-8 rounded-lg shadow-sm">
                     <div class="flex items-center mb-4">
-                        <img src="https://picsum.photos/80?random=3" alt="Emma Rodriguez" class="w-12 h-12 rounded-full mr-4">
+                        <img src="https://picsum.photos/80?random=3" alt="Khalid Hassan" class="w-12 h-12 rounded-full mr-4 rtl:mr-0 rtl:ml-4">
                         <div>
                             <h4 class="font-semibold">Khalid Hassan</h4>
                             <p class="text-gray-500 text-sm">Operations Manager, Sana'a Logistics</p>
                         </div>
                     </div>
-                    <p class="text-gray-600">"Mr.Ai's data analysis services helped us optimize our supply chain. Their custom approach made all the difference for our Yemen operations."</p>
+                    <p class="text-gray-600" data-en="Mr.Ai's data analysis services helped us optimize our supply chain. Their custom approach made all the difference for our Yemen operations." data-ar="ساعدتنا خدمات تحليل البيانات من Mr.Ai في تحسين سلسلة التوريد الخاصة بنا. أحدث نهجهم المخصص فرقًا كبيرًا لعملياتنا في اليمن.">Mr.Ai's data analysis services helped us optimize our supply chain. Their custom approach made all the difference for our Yemen operations.</p>
                     <div class="mt-4 text-yellow-400">
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
@@ -262,9 +312,9 @@
     <!-- CTA Section -->
     <section class="py-20 bg-primary text-white">
         <div class="container mx-auto px-6 text-center">
-            <h2 class="text-3xl font-bold mb-6">Ready to Transform Your Business?</h2>
-            <p class="text-xl mb-10 max-w-2xl mx-auto">Get a custom solution tailored to your specific needs and budget</p>
-            <a href="#contact" class="px-8 py-3 bg-white text-primary font-semibold rounded-md hover:bg-gray-100 transition">Get Your Custom Quote</a>
+            <h2 class="text-3xl font-bold mb-6" data-en="Ready to Transform Your Business?" data-ar="هل أنت مستعد لتحويل عملك؟">Ready to Transform Your Business?</h2>
+            <p class="text-xl mb-10 max-w-2xl mx-auto" data-en="Get a custom solution tailored to your specific needs and budget" data-ar="احصل على حل مخصص لاحتياجاتك وميزانيتك المحددة">Get a custom solution tailored to your specific needs and budget</p>
+            <a href="#contact" class="px-8 py-3 bg-white text-primary font-semibold rounded-md hover:bg-gray-100 transition cta-button" data-en="Get Your Custom Quote" data-ar="احصل على عرض سعر مخصص">Get Your Custom Quote</a>
         </div>
     </section>
 
@@ -273,143 +323,4 @@
         <div class="container mx-auto px-6">
             <div class="max-w-4xl mx-auto">
                 <div class="text-center mb-16">
-                    <h2 class="text-3xl font-bold text-dark mb-4">Get In Touch</h2>
-                    <p class="text-gray-600 max-w-2xl mx-auto">Have questions? Our team in Sana'a is here to help</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div>
-                        <h3 class="text-xl font-semibold mb-4">Contact Information</h3>
-                        <p class="text-gray-600 mb-6">Fill out the form and our team will get back to you within 24 hours.</p>
-                        <div class="space-y-4">
-                            <div class="flex items-start">
-                                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4">
-                                    <i class="fas fa-map-marker-alt text-primary"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-medium">Address</h4>
-                                    <p class="text-gray-600">Sana'a, Yemen</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4">
-                                    <i class="fas fa-envelope text-primary"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-medium">Email</h4>
-                                    <p class="text-gray-600">contact@mrai.com</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4">
-                                    <i class="fas fa-phone-alt text-primary"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-medium">Phone</h4>
-                                    <p class="text-gray-600">+967 123 456 789</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <form class="space-y-4">
-                            <div>
-                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                                <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent">
-                            </div>
-                            <div>
-                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                                <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent">
-                            </div>
-                            <div>
-                                <label for="service" class="block text-sm font-medium text-gray-700 mb-1">Service Needed</label>
-                                <select id="service" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent">
-                                    <option value="">Select a service</option>
-                                    <option value="automation">AI Automation</option>
-                                    <option value="marketing">Digital Marketing</option>
-                                    <option value="analysis">Data Analysis</option>
-                                    <option value="multiple">Multiple Services</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                                <textarea id="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent"></textarea>
-                            </div>
-                            <button type="submit" class="w-full py-3 bg-primary text-white rounded-md hover:bg-secondary transition">Send Message</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-dark text-white py-12">
-        <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <div class="flex items-center space-x-2 mb-4">
-                        <svg class="w-8 h-8 text-primary" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"></path>
-                        </svg>
-                        <span class="text-xl font-bold">Mr.Ai</span>
-                    </div>
-                    <p class="text-gray-400 mb-4">Custom AI solutions for businesses in Yemen and beyond.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-facebook"></i></a>
-                    </div>
-                </div>
-                <div>
-                    <h4 class="text-lg font-semibold mb-4">Services</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">AI Automation</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Digital Marketing</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Data Analysis</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Custom Solutions</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-lg font-semibold mb-4">Company</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">About Us</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Our Team</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Careers</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Blog</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-lg font-semibold mb-4">Legal</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Privacy Policy</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Terms of Service</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Cookie Policy</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-                <p>© 2023 Mr.Ai - Sana'a, Yemen. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // Mobile menu toggle functionality would go here
-        const mobileMenuButton = document.querySelector('.md\\:hidden');
-        mobileMenuButton.addEventListener('click', () => {
-            // Implementation for mobile menu toggle
-            console.log('Mobile menu would toggle here');
-        });
-    </script>
-</body>
-</html>
+                    <h
